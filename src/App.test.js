@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import timeState from "./Reducer/timeState";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+it('renders without crashing', () => {
+  const div = document.createElement('div')
+  const store = createStore(
+    timeState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+  ReactDOM.render(<Provider store={store}><App /></Provider>, div)
+})
