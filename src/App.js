@@ -1,11 +1,13 @@
 import React from 'react'
 import StopWatch from './components/StopWatch/index'
-import TitleSet from './components/SetTitle'
 
 function App() {
+
+  React.useEffect(() => {
+    (document.title = "Stopwatch");
+  });
   return (
     <React.Fragment>
-      <TitleSet />
       <StopWatch />
     </React.Fragment>
   );

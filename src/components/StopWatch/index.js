@@ -125,9 +125,12 @@ function StopWatch(props) {
       .toString(["hours", "minutes", "seconds", "secondTenths"])
   );
   const [state, setState] = useState({isStopped: false, isPaused: false})
+  const [check, setCheck] = useState(false)
 
   const handleAdd = (e) => {
-    e.preventDefault();
+    if (check === false ){
+      setState({isStopped: true})
+    }
     const timeState = {
       id: new Date(),
       runtime: runTime,
@@ -138,7 +141,6 @@ function StopWatch(props) {
     });
   };
   const handleReset = (e) => {
-    e.preventDefault();
     timer.reset();
     timer.stop();
     setState({isStopped: true})
@@ -148,6 +150,7 @@ function StopWatch(props) {
     });
   };
   const handlePlay = () => {
+    setCheck(true)
     setState({isStopped: false}) 
     timer.start({ precision: "secondTenths" })
   }
