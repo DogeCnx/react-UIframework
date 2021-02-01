@@ -18,6 +18,11 @@ import { cyan, grey } from "@material-ui/core/colors";
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Lottie from "react-lottie";
 import animationData from "../../lotties/stop-watch.json";
+var Mixpanel = require('mixpanel');
+
+var mixpanel = Mixpanel.init('5eb3a5c9ae4c9a350c5e7d5f2c306929');
+
+mixpanel.track('timedUsed', {time: new Date()});
 
 const defaultOptions = {
   loop: true,
@@ -128,6 +133,7 @@ function StopWatch(props) {
   const [check, setCheck] = useState(false)
 
   const handleAdd = (e) => {
+    mixpanel.track('Click Event', {Type: "LAB"});
     if (check === false ){
       setState({isStopped: true})
     }
@@ -141,6 +147,7 @@ function StopWatch(props) {
     });
   };
   const handleReset = (e) => {
+    mixpanel.track('Click Event', {Type: "CLEAR"});
     timer.reset();
     timer.stop();
     setState({isStopped: true})
@@ -150,11 +157,13 @@ function StopWatch(props) {
     });
   };
   const handlePlay = () => {
+    mixpanel.track('Click Event', {Type: "START"});
     setCheck(true)
     setState({isStopped: false}) 
     timer.start({ precision: "secondTenths" })
   }
   const handleStop = () => {
+    mixpanel.track('Click Event', {Type: "STOP"});
     setState({isStopped: true})
     timer.pause()
 
